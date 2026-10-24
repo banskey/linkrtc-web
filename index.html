@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LinkRTC — Patient Sender (Demo)</title>
+<style>
+  :root {
+    --teal: #0F7B7B;
+    --teal-dark: #0a5a5a;
+    --bg: #f4f7f7;
+    --card: #ffffff;
+    --text: #1a2a2a;
+    --muted: #5a6a6a;
+    --border: #d8e3e3;
+    --accent-bg: #E0F7F7;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.5;
+  }
+  header {
+    background: var(--teal); color: #fff; padding: 20px 24px;
+  }
+  header h1 { margin: 0; font-size: 22px; }
+  header p { margin: 6px 0 0; font-size: 14px; opacity: 0.92; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 20px 16px 60px; }
+  .demo-banner {
+    background: #fff4e0; border: 1px solid #f0c674; color: #7a5a00;
+    border-radius: 10px; padding: 12px 14px; font-size: 14px; margin: 16px 0;
+  }
+  .grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 14px; margin-top: 8px;
+  }
+  .card {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 16px; cursor: pointer; transition: transform .08s, box-shadow .12s;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(15,123,123,0.12); }
+  .card.selected { border-color: var(--teal); box-shadow: 0 0 0 2px var(--accent-bg); }
+  .card h3 { margin: 0 0 4px; font-size: 18px; color: var(--teal-dark); }
+  .card .meta { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  .card .summary { font-size: 14px; }
+  .send-btn {
+    margin-top: 12px; width: 100%; background: var(--teal); color: #fff; border: none;
+    border-radius: 10px; padding: 11px; font-size: 15px; font-weight: 600; cursor: pointer;
+  }
+  .send-btn:hover { background: var(--teal-dark); }
+  .panel {
+    background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    padding: 18px; margin-top: 22px;
+  }
+  .panel h2 { margin: 0 0 10px; font-size: 18px; color: var(--teal-dark); }
+  .code {
+    background: #0e1a1a; color: #9fe6e6; border-radius: 10px; padding: 12px 14px;
+    font-family: "SF Mono", Menlo, Consolas, monospace; font-size: 13px;
+    overflow-x: auto; word-break: break-all; margin: 8px 0;
+  }
+  .label { font-size: 13px; color: var(--muted); margin-top: 12px; font-weight: 600; }
+  .copy-row { display: flex; gap: 8px; align-items: center; }
+  .copy-btn {
+    background: var(--accent-bg); color: var(--teal-dark); border: 1px solid var(--teal);
+    border-radius: 8px; padding: 6px 12px; font-size: 13px; cursor: pointer; white-space: nowrap;
+  }
+  pre.json {
+    background: #f0f5f5; border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px; font-size: 12px; overflow-x: auto; max-height: 320px; overflow-y: auto;
+  }
+  .hidden { display: none; }
+  footer { text-align: center; color: var(--muted); font-size: 12px; padding: 24px; }
+  a { color: var(--teal); }
+</style>
+</head>
+<body>
+<header>
+  <h1>LinkRTC — Patient Sender</h1>
+  <p>Pick one patient. The phone app pulls just that one.</p>
+</header>
+
+<div class="wrap">
+  <div class="demo-banner">
+    <strong>Demo only.</strong> All 10 patients are made up. No real medical data.
+    Files on GitHub Pages are public — fine for a hackathon, not for real patients.
+  </div>
+
+  <h2 style="color:var(--teal-dark);">Choose a patient to send</h2>
+  <div id="grid" class="grid">Loading patients…</div>
+
+  <div id="sendPanel" class="panel hidden">
+    <h2>Send <span id="selName"></span> to the phone</h2>
+    <p style="font-size:14px;color:var(--muted);margin-top:0;">
+      This is the link the phone app asks for. It returns <strong>only this one patient</strong>.
+    </p>
+
+    <div class="label">Patient link (paste into the app's "server address")</div>
+    <div class="copy-row">
+      <div class="code" id="patientUrl"></div>
+    </div>
+    <button class="copy-btn" id="copyUrl">Copy link</button>
+
+    <div class="label">What the phone receives</div>
+    <pre class="json" id="jsonPreview"></pre>
+  </div>
+</div>
+
+<footer>LinkRTC demo · patient data is fictional</footer>
+
+<script>
+  // The base where this page is served. Patient files live beside it under /patients/.
+  // Works on GitHub Pages (project or user site) and when opened locally.
+  const BASE = location.href.replace(/\/[^\/]*$/, '/');
+  let patients = [];
+  let selectedId = null;
+
+  function patientFileUrl(file) {
+    return BASE + file;
+  }
+
+  async function load() {
+    const grid = document.getElementById('grid');
+    try {
+      const res = await fetch('patients.json', { cache: 'no-store' });
+      const data = await res.json();
+      patients = data.patients || [];
+      renderGrid();
+    } catch (e) {
+      grid.textContent = 'Could not load patients.json. Make sure it sits next to index.html.';
+    }
+  }
+
+  function renderGrid() {
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+    patients.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card' + (p.id === selectedId ? ' selected' : '');
+      card.innerHTML = `
+        <h3>${escapeHtml(p.name)}</h3>
+        <div class="meta">${p.age} · ${escapeHtml(p.sex)}</div>
+        <div class="summary">${escapeHtml(p.summary || '')}</div>
+        <button class="send-btn">Send this patient</button>
+      `;
+      card.querySelector('.send-btn').addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        select(p);
+      });
+      card.addEventListener('click', () => select(p));
+      grid.appendChild(card);
+    });
+  }
+
+  async function select(p) {
+    selectedId = p.id;
+    renderGrid();
+    const panel = document.getElementById('sendPanel');
+    panel.classList.remove('hidden');
+    document.getElementById('selName').textContent = p.name;
+    const url = patientFileUrl(p.file);
+    document.getElementById('patientUrl').textContent = url;
+    const preview = document.getElementById('jsonPreview');
+    preview.textContent = 'Loading…';
+    try {
+      const res = await fetch(p.file, { cache: 'no-store' });
+      const json = await res.json();
+      preview.textContent = JSON.stringify(json, null, 2);
+    } catch (e) {
+      preview.textContent = 'Could not load ' + p.file;
+    }
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.getElementById('copyUrl').addEventListener('click', () => {
+    const url = document.getElementById('patientUrl').textContent;
+    navigator.clipboard.writeText(url).then(() => {
+      const btn = document.getElementById('copyUrl');
+      const old = btn.textContent; btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = old, 1500);
+    });
+  });
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+    }[c]));
+  }
+
+  load();
+</script>
+</body>
+</html>

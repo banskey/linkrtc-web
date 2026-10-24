@@ -1,0 +1,25 @@
+{
+  "id": 10,
+  "name": "Daniel Foster",
+  "age": 52,
+  "sex": "male",
+  "profile": {
+    "conditions": [
+      "Melanoma",
+      "Hypertension"
+    ],
+    "medications": [
+      "Pembrolizumab",
+      "Amlodipine"
+    ],
+    "allergies": [
+      "Aspirin"
+    ],
+    "medical_history": "Stage II melanoma excised 2024.",
+    "biomarkers": "BRAF V600E positive",
+    "smoking_status": "former",
+    "alcohol_use": "heavy",
+    "pregnancy_status": "not_applicable",
+    "travel_radius_miles": 25
+  }
+}

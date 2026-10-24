@@ -1,0 +1,22 @@
+{
+  "id": 9,
+  "name": "Grace Kim",
+  "age": 38,
+  "sex": "female",
+  "profile": {
+    "conditions": [
+      "Crohn's Disease"
+    ],
+    "medications": [
+      "Adalimumab",
+      "Azathioprine"
+    ],
+    "allergies": [],
+    "medical_history": "Bowel resection 2021. Flare 2023.",
+    "biomarkers": "CRP 12, Calprotectin high",
+    "smoking_status": "current",
+    "alcohol_use": "none",
+    "pregnancy_status": "not_pregnant",
+    "travel_radius_miles": 100
+  }
+}

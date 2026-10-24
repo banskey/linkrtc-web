@@ -1,0 +1,25 @@
+{
+  "id": 3,
+  "name": "Sofia Alvarez",
+  "age": 29,
+  "sex": "female",
+  "profile": {
+    "conditions": [
+      "Rheumatoid Arthritis"
+    ],
+    "medications": [
+      "Methotrexate",
+      "Folic Acid"
+    ],
+    "allergies": [
+      "Latex",
+      "Ibuprofen"
+    ],
+    "medical_history": "Diagnosed 2022. No surgeries.",
+    "biomarkers": "RF positive, anti-CCP high",
+    "smoking_status": "never",
+    "alcohol_use": "none",
+    "pregnancy_status": "pregnant",
+    "travel_radius_miles": 10
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": 1,
+  "name": "Ava Thompson",
+  "age": 34,
+  "sex": "female",
+  "profile": {
+    "conditions": [
+      "Breast Cancer",
+      "Hypertension"
+    ],
+    "medications": [
+      "Tamoxifen",
+      "Lisinopril"
+    ],
+    "allergies": [
+      "Penicillin"
+    ],
+    "medical_history": "Lumpectomy 2023. Family history of breast cancer.",
+    "biomarkers": "ER+/PR+, HER2-",
+    "smoking_status": "never",
+    "alcohol_use": "occasional",
+    "pregnancy_status": "not_pregnant",
+    "travel_radius_miles": 50
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "patients": [
+    {
+      "id": 1,
+      "name": "Ava Thompson",
+      "age": 34,
+      "sex": "female",
+      "summary": "Breast Cancer, Hypertension",
+      "file": "patients/patient-1.json"
+    },
+    {
+      "id": 2,
+      "name": "Marcus Reed",
+      "age": 58,
+      "sex": "male",
+      "summary": "Type 2 Diabetes, Coronary Artery Disease",
+      "file": "patients/patient-2.json"
+    },
+    {
+      "id": 3,
+      "name": "Sofia Alvarez",
+      "age": 29,
+      "sex": "female",
+      "summary": "Rheumatoid Arthritis",
+      "file": "patients/patient-3.json"
+    },
+    {
+      "id": 4,
+      "name": "James Okafor",
+      "age": 47,
+      "sex": "male",
+      "summary": "Chronic Kidney Disease, Hypertension",
+      "file": "patients/patient-4.json"
+    },
+    {
+      "id": 5,
+      "name": "Emily Chen",
+      "age": 41,
+      "sex": "female",
+      "summary": "Multiple Sclerosis",
+      "file": "patients/patient-5.json"
+    },
+    {
+      "id": 6,
+      "name": "David Nguyen",
+      "age": 63,
+      "sex": "male",
+      "summary": "Parkinson's Disease",
+      "file": "patients/patient-6.json"
+    },
+    {
+      "id": 7,
+      "name": "Olivia Martins",
+      "age": 26,
+      "sex": "female",
+      "summary": "Asthma, Eczema",
+      "file": "patients/patient-7.json"
+    },
+    {
+      "id": 8,
+      "name": "Robert Hayes",
+      "age": 71,
+      "sex": "male",
+      "summary": "Prostate Cancer, Type 2 Diabetes",
+      "file": "patients/patient-8.json"
+    },
+    {
+      "id": 9,
+      "name": "Grace Kim",
+      "age": 38,
+      "sex": "female",
+      "summary": "Crohn's Disease",
+      "file": "patients/patient-9.json"
+    },
+    {
+      "id": 10,
+      "name": "Daniel Foster",
+      "age": 52,
+      "sex": "male",
+      "summary": "Melanoma, Hypertension",
+      "file": "patients/patient-10.json"
+    }
+  ]
+}

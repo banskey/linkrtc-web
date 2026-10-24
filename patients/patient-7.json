@@ -1,0 +1,26 @@
+{
+  "id": 7,
+  "name": "Olivia Martins",
+  "age": 26,
+  "sex": "female",
+  "profile": {
+    "conditions": [
+      "Asthma",
+      "Eczema"
+    ],
+    "medications": [
+      "Albuterol",
+      "Fluticasone"
+    ],
+    "allergies": [
+      "Peanuts",
+      "Dust mites"
+    ],
+    "medical_history": "Childhood asthma. ER visit 2019.",
+    "biomarkers": "IgE elevated",
+    "smoking_status": "never",
+    "alcohol_use": "occasional",
+    "pregnancy_status": "unsure",
+    "travel_radius_miles": 10
+  }
+}

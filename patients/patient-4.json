@@ -1,0 +1,23 @@
+{
+  "id": 4,
+  "name": "James Okafor",
+  "age": 47,
+  "sex": "male",
+  "profile": {
+    "conditions": [
+      "Chronic Kidney Disease",
+      "Hypertension"
+    ],
+    "medications": [
+      "Losartan",
+      "Furosemide"
+    ],
+    "allergies": [],
+    "medical_history": "CKD stage 3. On low-sodium diet.",
+    "biomarkers": "eGFR 42, Creatinine 1.9",
+    "smoking_status": "never",
+    "alcohol_use": "none",
+    "pregnancy_status": "not_applicable",
+    "travel_radius_miles": 100
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": 8,
+  "name": "Robert Hayes",
+  "age": 71,
+  "sex": "male",
+  "profile": {
+    "conditions": [
+      "Prostate Cancer",
+      "Type 2 Diabetes"
+    ],
+    "medications": [
+      "Leuprolide",
+      "Metformin"
+    ],
+    "allergies": [
+      "Iodine contrast"
+    ],
+    "medical_history": "Prostatectomy 2022. Diabetes 15 years.",
+    "biomarkers": "PSA 0.4, A1C 8.1",
+    "smoking_status": "former",
+    "alcohol_use": "moderate",
+    "pregnancy_status": "not_applicable",
+    "travel_radius_miles": 50
+  }
+}
